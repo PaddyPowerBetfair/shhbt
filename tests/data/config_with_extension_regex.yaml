@@ -1,0 +1,4 @@
+signatures:
+  - part:  'extension'
+    regex: '^key(store|ring)$'
+    name: 'GNOME Keyring database file'

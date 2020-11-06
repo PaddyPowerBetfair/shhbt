@@ -1,0 +1,4 @@
+signatures:
+  - part: 'extension'
+    match: 'pem'
+    name: 'Potential cryptographic private key'

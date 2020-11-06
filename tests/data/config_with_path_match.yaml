@@ -1,0 +1,4 @@
+signatures:
+  - part: 'path'
+    match: '/purple/accounts.yml'
+    name: 'Pidgin chat client account configuration file'

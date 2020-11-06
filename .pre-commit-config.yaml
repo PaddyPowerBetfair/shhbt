@@ -1,0 +1,23 @@
+default_language_version:
+    python: python3.8
+repos:
+-   repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+    - id: black
+      exclude: migrations
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.3
+    hooks:
+    - id: flake8
+      args: [--exit-zero]
+-   repo: https://github.com/PyCQA/bandit
+    rev: 1.6.2
+    hooks:
+    - id: bandit
+      args: [-ll, --recursive, -x, tests]
+      files: .py$
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.1.0  # Use the ref you want to point at
+    hooks:
+    - id: debug-statements

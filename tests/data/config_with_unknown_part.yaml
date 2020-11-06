@@ -1,0 +1,7 @@
+signatures:
+  - part: 'invalid'
+    match: 'filezilla.xml'
+    name: 'FileZilla FTP configuration file'
+  - part: 'invalid'
+    regex: '\.?purple/accounts\.xml$'
+    name: 'Pidgin chat client account configuration file'

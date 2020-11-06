@@ -1,0 +1,22 @@
+blacklists:
+  paths: ["tests"]
+  extensions: ["jpg"]
+signatures:
+  - part: 'extension'
+    match: 'pem'
+    name: 'Potential cryptographic private key'
+  - part: 'filename'
+    match: 'filezilla.xml'
+    name: 'FileZilla FTP configuration file'
+  - part: 'path'
+    regex: '\.?purple/accounts\.xml$'
+    name: 'Pidgin chat client account configuration file'
+  - part:  'extension'
+    regex: '^key(store|ring)$'
+    name: 'GNOME Keyring database file'
+  - part: 'filename'
+    regex: '^\.?htpasswd$'
+    name: 'Apache htpasswd file'
+  - part: 'contents'
+    regex: '-----BEGIN (EC|RSA|DSA|OPENSSH) PRIVATE KEY----'
+    name: 'Contains a private key'

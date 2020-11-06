@@ -1,0 +1,4 @@
+signatures:
+  - part: 'contents'
+    regex: '-----BEGIN (EC|RSA|DSA|OPENSSH) PRIVATE KEY----'
+    name: 'Contains a private key'

@@ -1,0 +1,4 @@
+signatures:
+  - part: 'path'
+    regex: '\.?purple/accounts\.xml$'
+    name: 'Pidgin chat client account configuration file'

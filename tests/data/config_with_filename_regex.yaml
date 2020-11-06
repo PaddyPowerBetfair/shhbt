@@ -1,0 +1,4 @@
+signatures:
+  - part: 'filename'
+    regex: '^\.?htpasswd$'
+    name: 'Apache htpasswd file'

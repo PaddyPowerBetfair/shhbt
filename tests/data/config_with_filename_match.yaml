@@ -1,0 +1,4 @@
+signatures:
+  - part: 'filename'
+    match: 'filezilla.xml'
+    name: 'FileZilla FTP configuration file'
