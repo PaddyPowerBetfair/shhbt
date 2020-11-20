@@ -1,0 +1,22 @@
+name: CI Process
+
+on:
+  pull_request:
+    branches: [ master ]
+    
+jobs:
+  ci:
+    name: Run CI pipeline.
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup env
+      - run: |
+        apt update && apt install -y python3 python3-pip
+        pip install -r requirements_dev.txt
+      - name: Run pre-commit hooks against codebase
+        run: |
+        pre-commit install
+        pre-commit run --all-files
+      - name: Run application tests
+      - run: pytest
