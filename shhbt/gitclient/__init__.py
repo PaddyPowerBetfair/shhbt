@@ -7,6 +7,7 @@ import requests
 
 from shhbt.session import Session
 
+
 class CommitStatus(Enum):
     SUCCESS = "success"
     FAILED = "failed"
@@ -33,10 +34,12 @@ class GitClient(ABC):
     def config_in_repo(self, proj_id: str) -> Tuple[bool, Optional[str]]:
         pass
 
+
 class Options:
     """
     The purpose of this class is to define params for specific behaviors in the clients.
     Pass the kwargs from the instantiated Client to override the default params.
     """
+
     def __init__(self, **kwargs):
         self.threads = kwargs.get("threads", 4)

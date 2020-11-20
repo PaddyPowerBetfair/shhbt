@@ -1,7 +1,7 @@
 EVENT_FOR_UNSAFE = {
     "project": {"id": 1, "path_with_namespace": "test_event"},
     "object_attributes": {"last_commit": {"id": "test_sha"}},
-    "event_type": "merge_request"
+    "event_type": "merge_request",
 }
 
 DIFF_IN_IGNORE_DIR = [

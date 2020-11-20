@@ -13,7 +13,7 @@ class TestSession(TestCase):
     @patch("shhbt.session.Session._parse_signatures")
     def test_loads_config_if_it_exists(self, _):
         # Override settings location for testing purposes
-        with patch('os.environ', {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/config.yaml"}):
+        with patch("os.environ", {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/config.yaml"}):
             # GIVEN a config file that exists
             assert os.path.exists(os.getenv("SCANNER_CONFIG_LOCATION")) is True
 
@@ -34,7 +34,7 @@ class TestSession(TestCase):
 
     def test_raises_error_if_tokens_missing(self):
         # Override settings location for testing purposes
-        with patch('os.environ', {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/wrong_config.yaml"}):
+        with patch("os.environ", {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/wrong_config.yaml"}):
             # GIVEN a config file missing gitlab tokens
             assert os.path.exists(os.getenv("SCANNER_CONFIG_LOCATION")) is False
 
@@ -45,12 +45,12 @@ class TestSession(TestCase):
 
     def test_can_parse_many_signatures(self):
         # Override settings location for testing purposes
-        with patch('os.environ', {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/config_with_sig.yaml"}):
+        with patch("os.environ", {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/config_with_sig.yaml"}):
             # GIVEN a config file with some signatures
             assert os.path.exists(os.getenv("SCANNER_CONFIG_LOCATION")) is True
 
             # WHEN the session is initialized
-            with open(os.getenv("SCANNER_CONFIG_LOCATION"), mode = "r") as file:
+            with open(os.getenv("SCANNER_CONFIG_LOCATION"), mode="r") as file:
                 session = Session(file)
 
             # THEN it should create 6 signatures

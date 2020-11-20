@@ -6,11 +6,10 @@ import pytest
 
 from shhbt.gitclient.gitlab import handle_gitlab_event, _GitLab, CommitStatus
 from shhbt.session import Session
-from tests import SecretTestMixin
 from tests.data import api_json_res
 
 
-class TestGitLabIntegration(SecretTestMixin, TestCase):
+class TestGitLabIntegration(TestCase):
     test_dir_data = f"{os.path.dirname(__file__)}/data"
 
     gitlab_config_patch = patch("shhbt.gitclient.gitlab._GitLab.config_in_repo")
@@ -40,7 +39,6 @@ class TestGitLabIntegration(SecretTestMixin, TestCase):
         self.gitlab_config_patch.stop()
         self.diff_patch.stop()
 
-
     def test_raises_if_no_hostname_nor_token(self):
         with pytest.raises(ValueError):
             _GitLab(hostname="", token="")
@@ -66,7 +64,7 @@ class TestGitLabIntegration(SecretTestMixin, TestCase):
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.PENDING),),
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.FAILED),),
         ]
-    
+
     @patch.dict("os.environ", test_env)
     def test_can_detect_secrets_in_extension(self):
         # Mock prep
@@ -102,10 +100,10 @@ class TestGitLabIntegration(SecretTestMixin, TestCase):
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.PENDING),),
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.FAILED),),
         ]
-    
+
     @patch.dict("os.environ", test_env)
     def test_skips_events_that_are_not_pushed_to(self):
-         # Mock prep
+        # Mock prep
         self.diff_mock.return_value = api_json_res.DIFF_DELETED_FILE
 
         # GIVEN an EVENT which contemplates items that belong to the blacklist
@@ -119,7 +117,8 @@ class TestGitLabIntegration(SecretTestMixin, TestCase):
         assert self.gitlab_change_status_mock.call_args_list == [
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.PENDING),),
             ((api_json_res.EVENT_FOR_UNSAFE.get("project").get("id"), "test_sha", CommitStatus.SUCCESS),),
-        ]   
+        ]
+
     def test_ignores_blacklisted_items(self):
         override_env = {
             "GITLAB_TOKEN": "Testing Token",
