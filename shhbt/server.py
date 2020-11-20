@@ -2,7 +2,6 @@ import os
 
 from flask import Flask, Response, request
 
-from shhbt.gitclient.github import GitHub
 from shhbt.gitclient.gitlab import handle_gitlab_event
 from shhbt.session import Session
 

@@ -70,7 +70,7 @@ class _GitLab(GitClient):
         errors, findings = self._process_changes(namespace=namespace, diffs=diffs)
         if errors:
             self._update_commit_status(proj_id, commit_sha, CommitStatus.FAILED)
-            
+
         else:
             if len(findings) > 0:
                 self._update_commit_status(proj_id, commit_sha, CommitStatus.FAILED)
@@ -78,7 +78,7 @@ class _GitLab(GitClient):
                 self._update_commit_status(proj_id, commit_sha, CommitStatus.SUCCESS)
 
     def _update_commit_status(self, proj: str, commit: str, status: CommitStatus, **kwargs):
-        """"
+        """ "
         _update_commit_status takes all required logic to update a commit status on GitLab.
         Users can provide a findings variable that contains all the things the scans might have found and those
         will be used to add more context.
@@ -110,7 +110,7 @@ class _GitLab(GitClient):
 
         return req.json()
 
-    def _process_changes(self, namespace: str, diffs: List[Dict]) -> Tuple[bool, List['HitFind']]:
+    def _process_changes(self, namespace: str, diffs: List[Dict]) -> Tuple[bool, List["HitFind"]]:
         """
         _process_changes takes all changes performed to a given file from a diff, and processes them in a multithreaded
         implementation.
@@ -135,7 +135,7 @@ class _GitLab(GitClient):
             pool.close()
             pool.join()
 
-    def _process_file_change(self, new_path, content) -> List[Optional['HitFind']]:
+    def _process_file_change(self, new_path, content) -> List[Optional["HitFind"]]:
         """
         _process_file_change handles processing each change separately. It uses the session that was preloaded into
         this client so it makes use of custom blacklists or signatures.
