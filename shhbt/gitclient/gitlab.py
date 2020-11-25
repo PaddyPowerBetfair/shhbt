@@ -5,7 +5,7 @@ from multiprocessing.pool import ThreadPool
 from os.path import splitext
 from typing import Any, Dict, List, Optional, Tuple
 
-from shhbt.data import HitFind
+from shhbt.data import Issue
 from shhbt.gitclient import CommitStatus, GitClient, Options
 from shhbt.session import Session
 from shhbt.utils import extract_additions
@@ -45,14 +45,14 @@ class _GitLab(GitClient):
         """
         req = self.http_session.request(
             method="GET",
-            url=f"{self.hostname}/api/v4/projects/{proj_id}/repository/files/%2Eshhbt_config%2Eyamlref=master?ref=master",
+            url=f"{self.hostname}/api/v4/projects/{proj_id}/repository/files/%2Eshhbt_config%2Eyaml?ref=master",
         )
 
         if req.status_code != 200:
             return False, None
 
         res_body = req.json()
-        return True, base64.decode(res_body.get("content"))
+        return True, base64.b64decode(res_body.get("content")).decode("utf-8")
 
     def handle_event(self, event: Dict[str, Any]):
         """
@@ -69,7 +69,7 @@ class _GitLab(GitClient):
         diffs = self._fetch_diff(proj_id=proj_id, commit=commit_sha)
         errors, findings = self._process_changes(namespace=namespace, diffs=diffs)
         if errors:
-            self._update_commit_status(proj_id, commit_sha, CommitStatus.FAILED)
+            self._update_commit_status(proj_id, commit_sha, CommitStatus.FAILED, findings)
 
         else:
             if len(findings) > 0:
@@ -77,7 +77,7 @@ class _GitLab(GitClient):
             else:
                 self._update_commit_status(proj_id, commit_sha, CommitStatus.SUCCESS)
 
-    def _update_commit_status(self, proj: str, commit: str, status: CommitStatus, **kwargs):
+    def _update_commit_status(self, proj: str, commit: str, status: CommitStatus, findings: List[Issue] = None):
         """ "
         _update_commit_status takes all required logic to update a commit status on GitLab.
         Users can provide a findings variable that contains all the things the scans might have found and those
@@ -88,8 +88,8 @@ class _GitLab(GitClient):
         if status == CommitStatus.SUCCESS:
             description = "No secrets found in modified code."
 
-        if status == CommitStatus.FAILED and kwargs.get("description") and kwargs.get("findings"):
-            description = "".join([f"{issue.signature_name}" for issue in kwargs.get("findings")])
+        if status == CommitStatus.FAILED and findings is not None:
+            description = "".join([f"{issue.signature_name}" for issue in findings])
 
         req = self.http_session.request(
             method="POST",
@@ -135,7 +135,7 @@ class _GitLab(GitClient):
             pool.close()
             pool.join()
 
-    def _process_file_change(self, new_path, content) -> List[Optional["HitFind"]]:
+    def _process_file_change(self, new_path, content) -> List[Optional[Issue]]:
         """
         _process_file_change handles processing each change separately. It uses the session that was preloaded into
         this client so it makes use of custom blacklists or signatures.
@@ -154,7 +154,7 @@ class _GitLab(GitClient):
 
         additions = extract_additions(text=content)
 
-        hits: List[HitFind] = []
+        hits: List[Issue] = []
 
         for signature in self.session.signatures:
             if signature.part == signature.PART_CONTENTS:
@@ -162,7 +162,7 @@ class _GitLab(GitClient):
                     matches = signature.get_content_matches(content=add)
                     if matches:
                         hits.append(
-                            HitFind(nr_findings=len(matches), signature_name=signature.name, file_rel_path=new_path)
+                            Issue(nr_findings=len(matches), signature_name=signature.name, file_rel_path=new_path)
                         )
             else:
                 matched, part = signature.match(
@@ -172,6 +172,6 @@ class _GitLab(GitClient):
                     content=content,
                 )
                 if matched:
-                    hits.append(HitFind(nr_findings=1, file_rel_path=new_path, signature_name=signature.name))
+                    hits.append(Issue(nr_findings=1, file_rel_path=new_path, signature_name=signature.name))
 
         return hits

@@ -1,1 +1,1 @@
-FLASK_APP=shhbt
+FLASK_APP=shhbt/main
