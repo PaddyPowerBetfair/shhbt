@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass
-class HitFind:
+class Issue:
     """
     Class to keep track of the elements found when a signature captures some insecure content in a repository scan.
     """

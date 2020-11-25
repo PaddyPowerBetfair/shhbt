@@ -3,7 +3,6 @@ import os
 from flask import Flask, Response, request
 
 from shhbt.gitclient.gitlab import handle_gitlab_event
-from shhbt.session import Session
 
 
 def create_flask_app(config=None):
