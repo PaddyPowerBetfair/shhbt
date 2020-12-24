@@ -32,7 +32,7 @@ To install and set-up the tool to run, you need to install the requirements in a
 variables, and get the server running. After getting the server running, you only need to configure the webhook in the 
 project's settings.
 
-Before that then, considering you are under an environment with **Python 3.8.5**, and in a Unix-based environment 
+Before that then, considering you are under an environment with **Python 3.9**, and in a Unix-based environment 
 (Windows users, please adapt the commands accordingly):
 - `git clone git@github.com/paddypowerbetfair/shhbt.git`
 - `cd shhbt`
