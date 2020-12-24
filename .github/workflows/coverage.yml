@@ -34,6 +34,8 @@ jobs:
           pip install -r requirements_dev.txt
           
       - name: Run cov report
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           coverage run --source=shhbt -m pytest --cov=shhbt
           coveralls
