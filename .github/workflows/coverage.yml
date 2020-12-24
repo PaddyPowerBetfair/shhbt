@@ -35,10 +35,10 @@ jobs:
           
       - name: Run cov report
         run: |
-          pytest --cov=shhbt
+          pytest --cov=shhbt --cov-report xml
           
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: .coverage
+          path-to-lcov: coverage.xml
