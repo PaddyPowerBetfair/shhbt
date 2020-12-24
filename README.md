@@ -1,3 +1,7 @@
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/paddypowerbetfair/shhbt/CI%20Process?style=plastic)
+[![Coverage Status](https://coveralls.io/repos/github/PaddyPowerBetfair/shhbt/badge.svg)](https://coveralls.io/github/PaddyPowerBetfair/shhbt)
+
 # shhbt  
 
 shhbt (**shh**git for **b**lue **t**eams) is a modification of the original [shhgit](https://github.com/eth0izzle/shhgit) 
