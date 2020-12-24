@@ -36,3 +36,8 @@ jobs:
       - name: Run cov report
         run: |
           pytest --cov=shhbt
+          
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
