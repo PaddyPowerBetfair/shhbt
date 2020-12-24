@@ -165,7 +165,7 @@ class TestUtilsSignatures(TestCase):
 
                 assert isinstance(sig, SimpleSignature)
                 assert match is False
-                assert part is ""
+                assert part == ""
 
                 sig_2 = session.signatures[1]
 
@@ -178,7 +178,7 @@ class TestUtilsSignatures(TestCase):
 
                 assert isinstance(sig_2, PatternSignature)
                 assert match is False
-                assert part is ""
+                assert part == ""
 
     @patch("logging.Logger.exception")
     def test_parsing_back_signatures_returns_error(self, log_mock):
