@@ -1,6 +1,8 @@
-[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/paddypowerbetfair/shhbt/CI%20Process?style=plastic)
-[![Coverage Status](https://coveralls.io/repos/github/PaddyPowerBetfair/shhbt/badge.svg)](https://coveralls.io/github/PaddyPowerBetfair/shhbt)
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.9-blue.svg" alt="Python" />
+  <img src="https://img.shields.io/github/workflow/status/paddypowerbetfair/shhbt/CI%20Process?style=plastic" alt="CI Build" />
+  <a href='https://coveralls.io/github/PaddyPowerBetfair/shhbt?branch=master'><img src='https://coveralls.io/repos/github/PaddyPowerBetfair/shhbt/badge.svg?branch=master' alt='Coverage Status' /></a>
+</p>
 
 # shhbt  
 
