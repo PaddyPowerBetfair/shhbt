@@ -179,3 +179,23 @@ class TestUtilsSignatures(TestCase):
                 assert isinstance(sig_2, PatternSignature)
                 assert match is False
                 assert part is ""
+
+    @patch("logging.Logger.exception")
+    def test_parsing_back_signatures_returns_error(self, log_mock):
+        with patch("os.environ", {"SCANNER_CONFIG_LOCATION": f"{self.test_dir_data}/config_with_invalid_regex.yaml"}):
+            with open(file=os.getenv("SCANNER_CONFIG_LOCATION"), mode="r") as f:
+                session = Session(f)  # GIVEN a config file with a single, yet invalid regex
+
+            # THEN an error is catched and logged
+            log_mock.assert_called_with(
+                "Failed loading signature. Offending entry: %s",
+                {
+                    "part": "contents",
+                    "regex": "(?i)linkedin(.{0,20})?(?-i)[''\"][0-9a-z]{12}[''\"]",
+                    "name": "No in-the-middle global modifiers for Python.",
+                },
+            )
+
+            # AND GIVEN there was only one signature in the file
+            # THEN no signatures were loaded into the config file
+            assert len(session.signatures) == 0
