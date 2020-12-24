@@ -1,5 +1,6 @@
 import logging
 from typing import Dict, List
+from re import error as RegexError
 
 import yaml
 
@@ -30,13 +31,16 @@ class Session:
                     )
                 )
             else:
-                signatures.append(
-                    PatternSignature(
-                        name=signature.get("name"),
-                        part=signature.get("part"),
-                        regex=signature.get("regex"),
+                try:
+                    signatures.append(
+                        PatternSignature(
+                            name=signature.get("name"),
+                            part=signature.get("part"),
+                            regex=signature.get("regex"),
+                        )
                     )
-                )
+                except RegexError:
+                    self._logger.exception("Failed loading signature. Offending entry: %s", signature)
         return signatures
 
     def _parse_blacklists(self) -> List[BlacklistItem]:
