@@ -1,0 +1,4 @@
+signatures:
+  - part: 'contents'
+    regex: "(?i)linkedin(.{0,20})?(?-i)[''\"][0-9a-z]{12}[''\"]"
+    name: 'No in-the-middle global modifiers for Python.'
