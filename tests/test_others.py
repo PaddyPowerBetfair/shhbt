@@ -1,5 +1,4 @@
 from unittest import TestCase
-from test.support import EnvironmentVarGuard
 
 from shhbt.utils import extract_additions
 
