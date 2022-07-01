@@ -1,4 +1,4 @@
 flask==2.1.2
-python-dotenv==0.16.0
+python-dotenv==0.20.0
 PyYaml==6.0
 requests==2.27.1
