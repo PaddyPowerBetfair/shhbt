@@ -430,5 +430,5 @@ signatures:
     regex: '\.?mozilla[\\\/]firefox[\\\/]logins.json$'
     name: 'Firefox saved password collection (can be decrypted using keys4.db)'
   - part: 'contents'
-    regex: "ghp_[0-9a-zA-Z]{36}"
+    regex: "(ghp|gho|ghu|ghs|ghr)_[0-9a-zA-Z]{36}"
     name: 'GitHub Personal Access Token'
