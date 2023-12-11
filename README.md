@@ -6,6 +6,15 @@
 
 # shhbt  
 
+# ❗Shhbt is no longer maintained ❗
+
+Despite the project's capabilities, it has been hard to allocate time to its maintenance and therefore we decided to stop 
+supporting shhbt's development.
+
+Please use at your own descrition - no more patches should be incoming from our side while the project is set as ***archived***
+
+----
+
 shhbt (**shh**git for **b**lue **t**eams) is a modification of the original [shhgit](https://github.com/eth0izzle/shhgit) 
 idea, to help blue teams target, and proactively detect and avoid leaking sensitive data into public repositories.
 
